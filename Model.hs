@@ -3,6 +3,7 @@ module Model where
 import Prelude
 import Yesod
 import Data.Text (Text)
+import Data.Map
 import Database.Persist.Quasi
 import Database.Persist.MongoDB hiding (master)
 import Language.Haskell.TH.Syntax

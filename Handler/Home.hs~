@@ -12,18 +12,16 @@ import Import
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler Html
 getHomeR = do
-    citations <- runDB $ selectList [] [Asc ReferenceId]
     (formWidget, formEnctype) <- generateFormPost sampleForm
     let submission = Nothing :: Maybe (FileInfo, Text)
         handlerName = "getHomeR" :: Text
     defaultLayout $ do
         aDomId <- newIdent
-        setTitle "Barch Homepage"
+        setTitle "Welcome To Yesod!"
         $(widgetFile "homepage")
 
 postHomeR :: Handler Html
 postHomeR = do
-    citations <- runDB $ selectList [] [Asc ReferenceId]
     ((result, formWidget), formEnctype) <- runFormPost sampleForm
     let handlerName = "postHomeR" :: Text
         submission = case result of
@@ -32,7 +30,7 @@ postHomeR = do
 
     defaultLayout $ do
         aDomId <- newIdent
-        setTitle "Barch Homepage"
+        setTitle "Welcome To Yesod!"
         $(widgetFile "homepage")
 
 sampleForm :: Form (FileInfo, Text)
