@@ -1,0 +1,24 @@
+Default: &defaults
+  user: barch
+  password: barch
+  host: localhost
+  database: barch
+  connections: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: barch_test
+  <<: *defaults
+
+Staging:
+  database: barch_staging
+  connections: 100
+  <<: *defaults
+
+Production:
+  database: barch_production
+  connections: 100
+  host: localhost
+  <<: *defaults

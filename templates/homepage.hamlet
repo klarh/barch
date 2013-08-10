@@ -1,0 +1,6 @@
+<h1>_{MsgHello}
+<ul>
+  <li>Test element 1
+  <li>Test element 2
+  $forall Entity _ citation <- citations
+    <li>#{show citation}
