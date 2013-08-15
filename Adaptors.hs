@@ -23,7 +23,7 @@ reference2Entry (Reference typ ident fields _ _) =
     fields' = M.toList $ (M.map unpack . M.mapKeys unpack) fields
 
 text2Tags::Text->[Text]
-text2Tags t = T.strip <$> T.splitOn (" "::Text) t
+text2Tags t = Prelude.filter (not . T.null) $ T.strip <$> T.splitOn (" "::Text) t
 
 tags2Text::[Text]->Text
 tags2Text = T.intercalate " "
