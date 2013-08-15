@@ -25,7 +25,10 @@ import Yesod.Core.Types (loggerSet, Logger (Logger))
 
 -- Import all relevant handler modules here.
 -- Don't forget to add new modules to your cabal file!
+import Handler.Edit
 import Handler.Home
+import Handler.Upload
+import Handler.View
 
 -- This line actually creates our YesodDispatch instance. It is the second half
 -- of the call to mkYesodData which occurs in Foundation.hs. Please see the

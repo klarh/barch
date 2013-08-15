@@ -1,0 +1,12 @@
+body
+  background-color:#cfcfcf
+  color:#1f1f1f
+input
+  background-color:#b0b0b0
+textarea
+  background-color:#e0e0e0
+hr
+  noshade:true
+  background-color:#505050
+  color:#505050
+  border-color:#505050

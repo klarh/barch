@@ -19,7 +19,11 @@ library
                      Settings
                      Settings.StaticFiles
                      Settings.Development
+                     Adaptors
+                     Handler.Edit
                      Handler.Home
+                     Handler.Upload
+                     Handler.View
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
@@ -69,6 +73,8 @@ library
                  , wai-logger                    >= 2.1        && < 2.2
                  , containers                    >= 0.5
                  , bibtex                        >= 0.1
+                 , parsec                        >= 3
+                 , yesod-markdown                >= 0.8
 
 executable         barch
     if flag(library-only)

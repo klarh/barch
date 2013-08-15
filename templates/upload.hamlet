@@ -1,0 +1,20 @@
+<h1>_{MsgUpload}
+<hr>
+Test element for upload page
+<hr>
+$maybe _ <- submission
+  The following entries were uploaded:
+    $forall entry <- parsed
+      <div>
+        <h2>#{BibE.entryType entry}: #{BibE.identifier entry}
+        <table>
+          $forall field <- BibE.fields entry
+            <tr>
+              <td>#{fst field}
+              <td>#{snd field}
+$nothing
+  <div #form>
+    <form method=post action=@{UploadR}#form enctype=#{formEnctype}>
+      ^{formWidget}
+      <input type="submit" value="Upload">
+<hr>

@@ -1,6 +1,8 @@
 {-# LANGUAGE TupleSections, OverloadedStrings #-}
 module Handler.Home where
 
+import qualified Data.Map as M
+import qualified Data.Text as T
 import Import
 
 -- This is a handler function for the GET request method on the HomeR
@@ -13,7 +15,7 @@ import Import
 getHomeR :: Handler Html
 getHomeR = do
     citations <- runDB $ selectList [] [Asc ReferenceId]
-    (formWidget, formEnctype) <- generateFormPost sampleForm
+--    (formWidget, formEnctype) <- generateFormPost sampleForm
     let submission = Nothing :: Maybe (FileInfo, Text)
         handlerName = "getHomeR" :: Text
     defaultLayout $ do
@@ -21,21 +23,21 @@ getHomeR = do
         setTitle "Barch Homepage"
         $(widgetFile "homepage")
 
-postHomeR :: Handler Html
-postHomeR = do
-    citations <- runDB $ selectList [] [Asc ReferenceId]
-    ((result, formWidget), formEnctype) <- runFormPost sampleForm
-    let handlerName = "postHomeR" :: Text
-        submission = case result of
-            FormSuccess res -> Just res
-            _ -> Nothing
+-- postHomeR :: Handler Html
+-- postHomeR = do
+--     citations <- runDB $ selectList [] [Asc ReferenceId]
+--     ((result, formWidget), formEnctype) <- runFormPost sampleForm
+--     let handlerName = "postHomeR" :: Text
+--         submission = case result of
+--             FormSuccess res -> Just res
+--             _ -> Nothing
 
-    defaultLayout $ do
-        aDomId <- newIdent
-        setTitle "Barch Homepage"
-        $(widgetFile "homepage")
+--     defaultLayout $ do
+--         aDomId <- newIdent
+--         setTitle "Barch Homepage"
+--         $(widgetFile "homepage")
 
-sampleForm :: Form (FileInfo, Text)
-sampleForm = renderDivs $ (,)
-    <$> fileAFormReq "Choose a file"
-    <*> areq textField "What's on the file?" Nothing
+-- sampleForm :: Form (FileInfo, Text)
+-- sampleForm = renderDivs $ (,)
+--     <$> fileAFormReq "Choose a file"
+--     <*> areq textField "What's on the file?" Nothing

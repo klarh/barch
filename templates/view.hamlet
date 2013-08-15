@@ -1,0 +1,21 @@
+<h1>_{MsgView}
+<hr>
+Test element for view page
+<hr>
+$maybe (Reference typ ident fields tags notes) <- dbRef
+  <div>
+    <h3>#{typ}: #{ident}
+      <a href=@{EditR refid} > (Edit)
+    <table>
+      $forall field <- (M.toList fields)
+        <tr>
+          <td>#{fst field}
+          <td>#{snd field}
+      <tr>
+        <td>Tags
+        <td>#{T.intercalate ", " tags}
+  <hr>
+    #{markdownToHtml notes}
+$nothing
+  Entry not found in database
+<hr>

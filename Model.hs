@@ -2,6 +2,7 @@ module Model where
 
 import Prelude
 import Yesod
+import Yesod.Markdown
 import Data.Text (Text)
 import Data.Map
 import Database.Persist.Quasi
