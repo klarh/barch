@@ -1,0 +1,22 @@
+<h1>_{MsgEdit}
+<hr>
+$maybe (Reference typ ident fields tags notes) <- reference
+  The following entry was edited:
+    <div>
+      <h2>#{typ}: #{ident}
+      <table>
+        $forall (key, val) <- M.toList fields
+          <tr>
+            <td>#{key}
+            <td>#{val}
+        <tr>
+          <td>Tags
+          <td>#{T.intercalate ", " tags}
+  <hr>
+    #{markdownToHtml notes}
+$nothing
+  <div #form>
+    <form method=post action=@{EditR refid}#form enctype=#{formEnctype}>
+      ^{formWidget}
+      <input type="submit" value="Edit">
+<hr>
