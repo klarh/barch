@@ -27,6 +27,7 @@ import Yesod.Core.Types (loggerSet, Logger (Logger))
 -- Don't forget to add new modules to your cabal file!
 import Handler.Edit
 import Handler.Home
+import Handler.Search
 import Handler.Upload
 import Handler.View
 

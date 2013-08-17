@@ -1,0 +1,25 @@
+<h1>_{MsgEdit}
+<hr>
+$if records
+  The following records were found:
+  $forall Entity refid (Reference typ ident fields _ tags _) <- matches
+    <div>
+      <a href=@{ViewR refid} >
+        <h3>#{typ}: #{ident}
+      <table>
+        $forall field <- (M.toList fields)
+          <tr>
+            <td>#{fst field}
+            <td>#{snd field}
+        <tr>
+          <td>Tags
+          <td>#{T.intercalate ", " tags}
+$else
+  $if handlerName == "postSearchR"
+    No results found.
+  $else
+    <div #form>
+      <form method=post action=@{SearchR fieldQuery}#form enctype=#{formEnctype}>
+        ^{formWidget}
+        <input type="submit" value="Search">
+<hr>
