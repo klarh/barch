@@ -17,5 +17,5 @@ import Data.Typeable (Typeable)
 let mongoSettings = (mkPersistSettings (ConT ''MongoBackend))
                         { mpsGeneric = False
                         }
- in share [mkPersist mongoSettings]
+ in share [mkPersist mongoSettings, mkMigrate "migrateAll"]
     $(persistFileWith lowerCaseSettings "config/models")

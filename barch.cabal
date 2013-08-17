@@ -22,6 +22,7 @@ library
                      Adaptors
                      Handler.Edit
                      Handler.Home
+                     Handler.Search
                      Handler.Upload
                      Handler.View
 

@@ -2,7 +2,7 @@
 <hr>
 Test element for view page
 <hr>
-$maybe (Reference typ ident fields tags notes) <- dbRef
+$maybe (Reference typ ident fields _ tags notes) <- dbRef
   <div>
     <h3>#{typ}: #{ident}
       <a href=@{EditR refid} > (Edit)

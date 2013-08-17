@@ -12,6 +12,7 @@ Reference
     type Text
     identifier Text
     fields (Map Text Text)
+    fieldKeys [Text]
     tags [Text]
     notes Markdown
     deriving Show
