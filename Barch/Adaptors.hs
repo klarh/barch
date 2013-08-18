@@ -1,5 +1,5 @@
 {-# LANGUAGE TupleSections, OverloadedStrings #-}
-module Adaptors where
+module Barch.Adaptors where
 
 import Prelude
 import Control.Applicative

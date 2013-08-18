@@ -8,4 +8,4 @@
 /upload UploadR GET POST
 /edit/#ReferenceId EditR GET POST
 /view/#ReferenceId ViewR GET
-/search/*Texts SearchR GET POST
+/search/#Text SearchR GET POST

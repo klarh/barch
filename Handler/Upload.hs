@@ -9,7 +9,7 @@ import qualified Text.BibTeX.Entry as BibE
 import Yesod.Markdown
 
 import Import
-import Adaptors
+import Barch.Adaptors
 import Handler.Edit
 
 -- This is a handler function for the GET request method on the UploadR
