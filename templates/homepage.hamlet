@@ -29,4 +29,6 @@ Entries in database:
             <td>#{snd field}
         <tr>
           <td>Tags
-          <td>#{T.intercalate ", " tags}
+          <td>
+            $forall tag <- tags
+              \ <a href=@{SearchR $ T.append "#" tag}> ##{tag}

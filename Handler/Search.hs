@@ -32,12 +32,12 @@ query2Filter q =
   where
     f (Q.Field k v) (Entity _ ref) = T.isInfixOf v ((referenceFields ref) M.! k)
     f (Plain t) (Entity _ ref) = t `occursIn` ref
-    f (Tag t) _ = True
+    f (Tag _) _ = True
 
 -- occursIn: return true if the given text occurs in any fields of a reference
 occursIn::Text->Reference->Bool
-occursIn txt (Reference typ id fields _ tags notes) =
-  inList [typ, id, unMarkdown notes] || inFields || inTags
+occursIn txt (Reference typ ident fields _ tags notes) =
+  inList [typ, ident, unMarkdown notes] || inFields || inTags
   where
     inList = any (T.isInfixOf txt)
     inFields = (inList . M.keys) fields || (inList . M.elems) fields
@@ -51,18 +51,22 @@ occursIn txt (Reference typ id fields _ tags notes) =
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
 getSearchR::Text->Handler Html
-getSearchR _ = do
+getSearchR query = do
     let submission = ""
         handlerName = "getSearchR" :: Text
---        query' = querySplit query
---        queryFilter = queryKeys2Filter $ fst <$> query'
-        fieldQuery = []
-        matches = []
-        records = False
+        fieldQuery = parse line "" query
+        queryDBFilter = case fieldQuery of
+          Right parsed -> query2DBFilter parsed
+          Left _ -> []
+        queryFilter = case fieldQuery of
+          Right parsed -> query2Filter parsed
+          Left _ -> \_ -> False
 
---    possibleMatches <- runDB $ selectList queryFilter []
+    possibleMatches <- runDB $ selectList queryDBFilter []
 
---    let matches = filter (queryFilterRef query') (possibleMatches)
+    let matches = filter queryFilter possibleMatches
+        wasQuery = any (not . T.null) [query, submission]
+        anyMatches = not . null $ matches
 
     ((result, formWidget), formEnctype) <- runFormPost $ searchReferenceForm
 
@@ -72,7 +76,7 @@ getSearchR _ = do
         $(widgetFile "search")
 
 postSearchR::Text->Handler Html
-postSearchR _ = do
+postSearchR query = do
     ((result, formWidget), formEnctype) <- runFormPost $ searchReferenceForm
     let submission = case result of
           FormSuccess res -> res
@@ -89,7 +93,8 @@ postSearchR _ = do
 
     let matches = filter queryFilter possibleMatches
         handlerName = "postSearchR" :: Text
-        records = not . null $ matches
+        wasQuery = any (not . T.null) [query, submission]
+        anyMatches = not . null $ matches
 
     defaultLayout $ do
         aDomId <- newIdent
@@ -97,4 +102,4 @@ postSearchR _ = do
         $(widgetFile "search")
 
 searchReferenceForm::Form Text
-searchReferenceForm = renderDivs $ areq textField "Search Query" Nothing
+searchReferenceForm = renderDivs $ areq (searchField True) "Search Query" Nothing

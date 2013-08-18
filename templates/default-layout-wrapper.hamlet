@@ -16,6 +16,7 @@ $newline never
 
         ^{pageHead pc}
 
+        <link href='http://fonts.googleapis.com/css?family=Ledger|Merriweather' rel='stylesheet' type='text/css'>
         \<!--[if lt IE 9]>
         \<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         \<![endif]-->

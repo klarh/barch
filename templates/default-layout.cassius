@@ -1,12 +1,49 @@
 body
-  background-color:#cfcfcf
   color:#1f1f1f
-input
-  background-color:#b0b0b0
+  font-family: 'Merriweather', serif;
+  background-color:#f7f3de
+h1, h2, h3, h4, h5, h6
+  font-family: 'Ledger', serif;
+
+a
+  color:#373d61
+a:visited
+  color:#373d61
+
+div.container
+  background-color:#dbd0b8
+  box-shadow 0 0 2px 2px #dbd0b8
+
+#main
+  padding:1em
+
+input[type=submit]
+  background-color:#f7f3de
+
+input[type=text]
+  width=75%
+  background-color:#ebe7e4
 textarea
-  background-color:#e0e0e0
+  width:75%
+  height:20em
+  background-color:#ebe7e4
+
 hr
   noshade:true
-  background-color:#505050
-  color:#505050
-  border-color:#505050
+  border-color:#373d61
+
+ul.navBar
+  list-style-type:none;
+  margin-top:1.5em;
+  margin-bottom:1.5em;
+  margin-left:0
+  margin-right:0
+  overflow:hidden;
+  font-size:200%
+  background-color:#373d61
+li.navBar
+  margin:.75em;
+  float:left;
+a.navBar
+  text-decoration:none
+  color:#ebe7e4

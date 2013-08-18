@@ -1,8 +1,16 @@
 <div>
-  <a href=@{HomeR}> Home
-  <a href=@{UploadR}> Upload
-  <a href=@{SearchR ""}> Search
+  <ul class="navBar">
+    <div class="navBar">
+      <li class="navBar">
+        <a class="navBar" href=@{HomeR}> Home
+    <div class="navBar">
+      <li class="navBar">
+        <a class="navBar" href=@{UploadR}> Upload
+    <div class="navBar">
+      <li class="navBar">
+        <a class="navBar" href=@{SearchR ""}> Search
 
 $maybe msg <- mmsg
     <div #message>#{msg}
+
 ^{widget}

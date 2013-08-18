@@ -1,7 +1,5 @@
 <h1>_{MsgUpload}
 <hr>
-Test element for upload page
-<hr>
 $maybe _ <- submission
   The following entries were uploaded:
     $forall entry <- parsed
