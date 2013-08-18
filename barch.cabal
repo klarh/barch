@@ -19,7 +19,8 @@ library
                      Settings
                      Settings.StaticFiles
                      Settings.Development
-                     Adaptors
+                     Barch.Adaptors
+                     Barch.QueryParser
                      Handler.Edit
                      Handler.Home
                      Handler.Search
