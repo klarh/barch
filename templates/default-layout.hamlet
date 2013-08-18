@@ -1,7 +1,7 @@
 <div>
   <a href=@{HomeR}> Home
   <a href=@{UploadR}> Upload
-  <a href=@{defaultSearchR}> Search
+  <a href=@{SearchR ""}> Search
 
 $maybe msg <- mmsg
     <div #message>#{msg}

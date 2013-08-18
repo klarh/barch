@@ -8,8 +8,8 @@ import Text.Parsec.Text
 import Text.Parsec.Token
 
 -- Term: a single blob of text, possibly with spaces if enclosed by quotes
-newtype Term = Term Text
-               deriving Show
+type Term = Text
+
 
 -- Elt: corresponds to a single term in our search language
 data Elt = Plain Term |
@@ -35,7 +35,7 @@ quotedText =
 term::GenParser st Term
 term =
   do val <- (quotedText <|> text)
-     return $ Term val
+     return val
 
 plain::GenParser st Elt
 plain =

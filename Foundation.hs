@@ -1,6 +1,7 @@
 module Foundation where
 
 import Prelude
+import Data.Text
 import Yesod
 import Yesod.Static
 import Yesod.Auth
@@ -73,8 +74,6 @@ instance Yesod App where
     defaultLayout widget = do
         master <- getYesod
         mmsg <- getMessage
-
-        let defaultSearchR = SearchR []
 
         -- We break up the default layout into two components:
         -- default-layout is the contents of the body tag, and

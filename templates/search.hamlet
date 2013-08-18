@@ -19,7 +19,7 @@ $else
     No results found.
   $else
     <div #form>
-      <form method=post action=@{SearchR fieldQuery}#form enctype=#{formEnctype}>
+      <form method=post action=@{SearchR submission}#form enctype=#{formEnctype}>
         ^{formWidget}
         <input type="submit" value="Search">
 <hr>
