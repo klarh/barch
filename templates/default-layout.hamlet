@@ -1,14 +1,10 @@
-<div>
-  <ul class="navBar">
-    <div class="navBar">
-      <li class="navBar">
-        <a class="navBar" href=@{HomeR}> Home
-    <div class="navBar">
-      <li class="navBar">
-        <a class="navBar" href=@{UploadR}> Upload
-    <div class="navBar">
-      <li class="navBar">
-        <a class="navBar" href=@{SearchR ""}> Search
+<div class="navAll">
+  <div class="navDiv">
+      <a class="navBar" href=@{HomeR}> Home
+  <div class="navDiv">
+      <a class="navBar" href=@{UploadR}> Upload
+  <div class="navDiv">
+      <a class="navBar" href=@{SearchR ""}> Search
 
 $maybe msg <- mmsg
     <div #message>#{msg}
