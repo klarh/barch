@@ -1,10 +1,7 @@
-<h1>_{MsgView}
-<hr>
-Test element for view page
 <hr>
 $maybe (Reference typ ident fields _ tags notes) <- dbRef
   <div>
-    <h3>#{typ}: #{ident}
+    <h1>#{typ}: #{ident}
       <a href=@{EditR refid} > (Edit)
     <table>
       $forall field <- (M.toList fields)

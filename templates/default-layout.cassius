@@ -2,6 +2,7 @@ body
   color:#1f1f1f
   font-family: 'Merriweather', serif;
   background-color:#f7f3de
+  font-size:16px
 h1, h2, h3, h4, h5, h6
   font-family: 'Ledger', serif;
 
@@ -9,10 +10,12 @@ a
   color:#373d61
 a:visited
   color:#373d61
+a:hover
+  text-decoration:none
 
 div.container
   background-color:#dbd0b8
-  box-shadow 0 0 2px 2px #dbd0b8
+  box-shadow 0 0 5px 5px #dbd0b8
 
 #main
   padding:1em
@@ -32,7 +35,7 @@ hr
   noshade:true
   border-color:#373d61
 
-ul.navBar
+div.navAll
   list-style-type:none;
   margin-top:1.5em;
   margin-bottom:1.5em;
@@ -41,9 +44,13 @@ ul.navBar
   overflow:hidden;
   font-size:200%
   background-color:#373d61
-li.navBar
-  margin:.75em;
-  float:left;
+  border-radius:.2em
+div.navDiv
+  margin:1em 1em
+  float:left
+/* div.navDiv:hover
+  background-color:#bfc9d9 */
 a.navBar
   text-decoration:none
   color:#ebe7e4
+  margin:1em 1em
