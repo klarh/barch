@@ -1,0 +1,20 @@
+<hr>
+$maybe (Reference typ ident fields _ tags notes) <- dbRef
+  Really delete the following entry?
+  <div>
+    <h2>#{typ}: #{ident}
+    <table>
+      $forall (key, val) <- M.toList fields
+        <tr>
+          <td>#{key}
+          <td>#{val}
+      <tr>
+        <td>Tags
+        <td>#{T.intercalate ", " tags}
+  <hr>
+    #{markdownToHtml notes}
+    <form method=post action=@{DeleteR refid}#form enctype=#{formEnctype}>
+      <input type="submit" value="Delete">
+$nothing
+  No matching entry found in the database.
+<hr>

@@ -7,5 +7,6 @@
 / HomeR GET
 /upload UploadR GET POST
 /edit/#ReferenceId EditR GET POST
+/delete/#ReferenceId DeleteR GET POST
 /view/#ReferenceId ViewR GET
 /search/#Text SearchR GET POST

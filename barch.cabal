@@ -22,6 +22,7 @@ library
                      Barch.Adaptors
                      Barch.QueryParser
                      Handler.Edit
+                     Handler.Delete
                      Handler.Home
                      Handler.Search
                      Handler.Upload
