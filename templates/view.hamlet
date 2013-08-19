@@ -3,6 +3,7 @@ $maybe (Reference typ ident fields _ tags notes) <- dbRef
   <div>
     <h1>#{typ}: #{ident}
       <a href=@{EditR refid} > (Edit)
+      <a href=@{DeleteR refid}> (Delete)
     <table>
       $forall field <- (M.toList fields)
         <tr>
