@@ -36,7 +36,7 @@ query2Filter q =
 
 -- occursIn: return true if the given text occurs in any fields of a reference
 occursIn::Text->Reference->Bool
-occursIn txt (Reference typ ident fields _ tags notes) =
+occursIn txt (Reference typ ident fields _ tags notes _) =
   inList [typ, ident, unMarkdown notes] || inFields || inTags
   where
     inList = any (T.isInfixOf txt)

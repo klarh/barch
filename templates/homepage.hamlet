@@ -18,7 +18,7 @@ Ideas
 
 Entries in database:
 <ul>
-  $forall Entity refid (Reference typ ident fields _ tags _) <- citations
+  $forall Entity refid (Reference typ ident fields _ tags _ _) <- citations
     <div>
       <a href=@{ViewR refid} >
         <h3>#{typ}: #{ident}

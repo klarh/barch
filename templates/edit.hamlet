@@ -1,6 +1,6 @@
 <h1>_{MsgEdit}
 <hr>
-$maybe (Reference typ ident fields _ tags notes) <- reference
+$maybe (Reference typ ident fields _ tags notes _) <- reference
   The following entry was edited:
   <div>
     <h2>#{typ}: #{ident}

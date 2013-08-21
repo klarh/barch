@@ -1,5 +1,5 @@
 <hr>
-$maybe (Reference typ ident fields _ tags notes) <- dbRef
+$maybe (Reference typ ident fields _ tags notes _) <- dbRef
   Really delete the following entry?
   <div>
     <h2>#{typ}: #{ident}
