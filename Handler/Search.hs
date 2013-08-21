@@ -10,29 +10,29 @@ import qualified Data.Text as T
 import Text.Parsec
 
 import Import
-import Barch.QueryParser as Q
+import qualified Barch.QueryParser as Q
 --import Barch.Adaptors
 
 -- query2DBFilter: take a list of query elements and return the
 -- database query to run
-query2DBFilter::[Elt]->[Filter Reference]
+query2DBFilter::[Q.Elt]->[Filter Reference]
 query2DBFilter =
   mapMaybe f
   where
     f (Q.Field t _) = Just $ multiEq ReferenceFieldKeys t
-    f (Tag t) = Just $ multiEq ReferenceTags t
+    f (Q.Tag t) = Just $ multiEq ReferenceTags t
     f _ = Nothing
 
 -- query2Filter: take a list of query elements and return the function
 -- to filter the results of the databse query by; assumes that tags
 -- have already been checked, for example
-query2Filter::[Elt]->(Entity Reference->Bool)
+query2Filter::[Q.Elt]->(Entity Reference->Bool)
 query2Filter q =
   \ref -> foldl (&&) True $ pure f <*> q <*> pure ref
   where
     f (Q.Field k v) (Entity _ ref) = T.isInfixOf v ((referenceFields ref) M.! k)
-    f (Plain t) (Entity _ ref) = t `occursIn` ref
-    f (Tag _) _ = True
+    f (Q.Plain t) (Entity _ ref) = t `occursIn` ref
+    f (Q.Tag _) _ = True
 
 -- occursIn: return true if the given text occurs in any fields of a reference
 occursIn::Text->Reference->Bool
@@ -54,7 +54,7 @@ getSearchR::Text->Handler Html
 getSearchR query = do
     let submission = ""
         handlerName = "getSearchR" :: Text
-        fieldQuery = parse line "" query
+        fieldQuery = parse Q.line "" query
         queryDBFilter = case fieldQuery of
           Right parsed -> query2DBFilter parsed
           Left _ -> []
@@ -81,7 +81,7 @@ postSearchR query = do
     let submission = case result of
           FormSuccess res -> res
           _ -> ""
-        fieldQuery = parse line "" submission
+        fieldQuery = parse Q.line "" submission
         queryDBFilter = case fieldQuery of
           Right parsed -> query2DBFilter parsed
           Left _ -> []

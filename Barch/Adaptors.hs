@@ -9,9 +9,11 @@ import Data.Time.Calendar (fromGregorian)
 import qualified Text.BibTeX.Entry as Bib
 import qualified Data.Map.Lazy as M
 import Data.Text as T
+import Text.Parsec
 import Yesod.Markdown
 
 import Model
+import qualified Barch.QueryParser as Q
 
 -- touchReference: update the update time of a Reference to now
 touchReference::MonadIO m=>Reference->m Reference
@@ -44,7 +46,14 @@ reference2Entry (Reference typ ident fields _ _ _ _) =
     fields' = M.toList $ (M.map unpack . M.mapKeys unpack) fields
 
 text2Tags::Text->[Text]
-text2Tags t = Prelude.filter (not . T.null) $ T.strip <$> T.splitOn (" "::Text) t
+text2Tags t = Q.unTag <$> (either (\_->[]) id $ parse Q.tags "" t)
+--text2Tags t = Prelude.filter (not . T.null) $ T.strip <$> T.splitOn (" "::Text) t
+
+-- wrapTag: wrap a tag in quotation marks if it contains any spaces
+wrapTag::Text->Text
+wrapTag x
+  | T.any (==' ') x = T.snoc ('"' `T.cons` x) '"'
+  | otherwise = x
 
 tags2Text::[Text]->Text
-tags2Text = T.intercalate " "
+tags2Text xs = T.intercalate " " (wrapTag <$> xs)
