@@ -16,7 +16,7 @@ Ideas
         <li>RSS feed?
       <li>integration with some api's from google scholar, arxiv, etc
 
-Entries in database:
+First 10 entries in database:
 <ul>
   $forall Entity refid (Reference typ ident fields _ tags _ _) <- citations
     <div>
@@ -31,4 +31,4 @@ Entries in database:
           <td>Tags
           <td>
             $forall tag <- tags
-              \ <a href=@{SearchR $ T.append "#" tag}> ##{tag}
+              \ <a href=@{SearchR $ T.append "#" (wrapTag tag)}> ##{tag}

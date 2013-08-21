@@ -4,6 +4,7 @@ module Handler.Home where
 import qualified Data.Map as M
 import qualified Data.Text as T
 import Import
+import Barch.Adaptors
 
 -- This is a handler function for the GET request method on the HomeR
 -- resource pattern. All of your resource patterns are defined in
@@ -14,7 +15,7 @@ import Import
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler Html
 getHomeR = do
-    citations <- runDB $ selectList [] [Desc ReferenceLastModified]
+    citations <- runDB $ selectList [] [Desc ReferenceLastModified, LimitTo 10]
 --    (formWidget, formEnctype) <- generateFormPost sampleForm
     let submission = Nothing :: Maybe (FileInfo, Text)
         handlerName = "getHomeR" :: Text

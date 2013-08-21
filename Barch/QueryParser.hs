@@ -2,6 +2,7 @@
 module Barch.QueryParser where
 
 import Prelude
+import Control.Applicative ((<$>))
 import Data.Text as T
 import Text.Parsec
 import Text.Parsec.Text
@@ -10,12 +11,17 @@ import Text.Parsec.Token
 -- Term: a single blob of text, possibly with spaces if enclosed by quotes
 type Term = Text
 
-
 -- Elt: corresponds to a single term in our search language
-data Elt = Plain Term |
-           Field Text Term |
-           Tag Term
+data Elt = Plain {unPlain::Term} |
+           Field {unFieldKey::Text, unFieldVal::Term} |
+           Tag {unTag::Term}
            deriving Show
+
+-- elt2Tag: translate any element into a tag
+elt2Tag::Elt->Elt
+elt2Tag (Plain x) = Tag x
+elt2Tag (Field key val) = Tag $ key `append` (':' `cons` val)
+elt2Tag (Tag x) = Tag x
 
 text::GenParser st Text
 text =
@@ -61,3 +67,9 @@ line::GenParser st [Elt]
 line =
   do many space
      sepEndBy (tag <|> field <|> plain) spaces
+
+tags::GenParser st [Elt]
+tags =
+  do many space
+     elts <- line
+     return $ elt2Tag <$> elts
