@@ -13,12 +13,24 @@ import Yesod.Markdown
 
 import Model
 
--- entry2Reference::MonadIO m=>[Text]->Markdown->Bib.T->m Reference
--- entry2Reference tags notes entry = do
---   time <- liftIO $ getCurrentTime
---   return $ (entry2Reference' tags notes entry) time
+-- touchReference: update the update time of a Reference to now
+touchReference::MonadIO m=>Reference->m Reference
+touchReference ref = do
+  time <- liftIO getCurrentTime
+  return $ ref {referenceLastModified = time}
+
+-- touchMaybeReference: update the update time of a Maybe Reference to now
+touchMaybeReference::MonadIO m=>Maybe Reference->m (Maybe Reference)
+touchMaybeReference mref = do
+  case mref of
+    Nothing -> return Nothing
+    Just ref' -> do
+                 ref <- touchReference ref'
+                 return $ Just ref
+
 entry2Reference::[Text]->Markdown->Bib.T->Reference
 entry2Reference tags notes entry = (entry2Reference' tags notes entry) $ UTCTime (fromGregorian 0 0 0) (secondsToDiffTime 0)
+
 entry2Reference'::[Text]->Markdown->Bib.T->(UTCTime->Reference)
 entry2Reference' tags notes (Bib.Cons typ ident fields) =
   Reference (pack typ) (pack ident) fields' (M.keys fields') tags notes

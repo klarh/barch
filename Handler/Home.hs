@@ -14,7 +14,7 @@ import Import
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler Html
 getHomeR = do
-    citations <- runDB $ selectList [] [Asc ReferenceId]
+    citations <- runDB $ selectList [] [Desc ReferenceLastModified]
 --    (formWidget, formEnctype) <- generateFormPost sampleForm
     let submission = Nothing :: Maybe (FileInfo, Text)
         handlerName = "getHomeR" :: Text

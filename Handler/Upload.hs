@@ -45,7 +45,9 @@ postUploadR = do
         parsed = case parseRes of
             Left err -> []
             Right xs -> xs
-        references = entry2Reference (text2Tags tagsText) notes <$> parsed
+        references' = entry2Reference (text2Tags tagsText) notes <$> parsed
+
+    references <- mapM touchReference references'
 
     _ <- runDB $ insertMany references
 
