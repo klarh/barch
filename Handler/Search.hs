@@ -89,7 +89,7 @@ postSearchR query = do
           Right parsed -> query2Filter parsed
           Left _ -> \_ -> False
 
-    possibleMatches <- runDB $ selectList queryDBFilter []
+    possibleMatches <- runDB $ selectList queryDBFilter [Desc ReferenceLastModified]
 
     let matches = filter queryFilter possibleMatches
         handlerName = "postSearchR" :: Text

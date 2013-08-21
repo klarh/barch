@@ -53,7 +53,13 @@ postEditR refid = do
             Right (x:_) -> Just x
             Right [] -> Nothing
         mergeRef = entry2Reference (text2Tags tagsText) notes
-        reference = mergeRef <$> parsed
+
+    -- reference <- case reference of
+    --   Nothing -> return Nothing
+    --   Just ref -> do
+    --               ref' <- touchReference ref
+    --               return $ Just ref'
+    reference <- touchMaybeReference (mergeRef <$> parsed)
 
     case reference of
       Nothing -> return ()
