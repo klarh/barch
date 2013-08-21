@@ -78,6 +78,7 @@ library
                  , bibtex                        >= 0.1
                  , parsec                        >= 3
                  , yesod-markdown                >= 0.8
+                 , time                          >= 1.4
 
 executable         barch
     if flag(library-only)

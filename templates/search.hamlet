@@ -3,7 +3,7 @@
 $if wasQuery
   $if anyMatches
     The following records were found:
-    $forall Entity refid (Reference typ ident fields _ tags _) <- matches
+    $forall Entity refid (Reference typ ident fields _ tags _ _) <- matches
       <div>
         <a href=@{ViewR refid} >
           <h3>#{typ}: #{ident}

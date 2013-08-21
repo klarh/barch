@@ -4,6 +4,7 @@ import Prelude
 import Yesod
 import Yesod.Markdown
 import Data.Text (Text)
+import Data.Time (UTCTime)
 import Data.Map
 import Database.Persist.Quasi
 import Database.Persist.MongoDB hiding (master)
