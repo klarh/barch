@@ -23,8 +23,10 @@ import Import
 getViewR :: ReferenceId->Handler Html
 getViewR refid = do
     dbRef <- runDB $ get refid
+    dbFiles <- runDB $ selectList [ReferenceFileRef ==. refid] [Asc ReferenceFileVersion]
 
     let handlerName = "getViewR" :: Text
+        haveFiles = (not . null) dbFiles
 
     defaultLayout $ do
         aDomId <- newIdent
