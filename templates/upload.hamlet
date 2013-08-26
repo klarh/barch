@@ -11,8 +11,8 @@ $maybe _ <- submission
               <td>#{fst field}
               <td>#{snd field}
 $nothing
-  <div #form>
-    <form method=post action=@{UploadR}#form enctype=#{formEnctype}>
-      ^{formWidget}
+  <div #editform>
+    <form method=post action=@{UploadR}#editform enctype=#{editFormEnctype}>
+      ^{editFormWidget}
       <input type="submit" value="Upload">
 <hr>

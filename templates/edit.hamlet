@@ -17,11 +17,15 @@ $maybe (Reference typ ident fields _ tags notes _) <- reference
 $nothing
   $if handlerName == "postDeleteR"
     The following entry was deleted:
-  <div #form>
-    <form method=post action=@{EditR refid}#form enctype=#{formEnctype}>
-      ^{formWidget}
+  <div #editform>
+    <form method=post action=@{EditR refid}#editform enctype=#{editFormEnctype}>
+      ^{editFormWidget}
       $if handlerName == "postDeleteR"
         <input type="submit" value="Undo">
       $else
         <input type="submit" value="Edit">
+  <div #uploadfileform>
+    <form method=post action=@{EditR refid}#uploadfileform enctype=#{uploadFileFormEnctype}>
+      ^{uploadFileFormWidget}
+      <input type="submit" value="Upload">
 <hr>

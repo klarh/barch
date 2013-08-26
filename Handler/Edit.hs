@@ -12,6 +12,7 @@ import Yesod.Markdown
 
 import Import
 import Barch.Adaptors
+import Barch.UploadUtils
 
 -- This is a handler function for the GET request method on the EditR
 -- resource pattern. All of your resource patterns are defined in
@@ -24,7 +25,9 @@ getEditR :: ReferenceId->Handler Html
 getEditR refid = do
     dbRef <- runDB $ get refid
 
-    (formWidget, formEnctype) <- generateFormPost $ editReferenceForm dbRef
+    (editFormWidget, editFormEnctype) <- generateFormPost $ editReferenceForm dbRef
+    (uploadFileFormWidget, uploadFileFormEnctype) <- generateFormPost $ addFileForm
+
     let submission = Nothing :: Maybe Text
         handlerName = "getEditR" :: Text
         fieldText = "" :: Text
@@ -39,9 +42,11 @@ postEditR :: ReferenceId->Handler Html
 postEditR refid = do
     dbRef <- runDB $ get refid
 
-    ((result, formWidget), formEnctype) <- runFormPost $ editReferenceForm dbRef
+    ((editResult, editFormWidget), editFormEnctype) <- runFormPost $ editReferenceForm dbRef
+    ((uploadFileResult, uploadFileFormWidget), uploadFileFormEnctype) <- runFormPost $ addFileForm
+
     let handlerName = "postEditR" :: Text
-        submission = case result of
+        submission = case editResult of
             FormSuccess res -> Just res
             _ -> Nothing
         (bibText, tagsText, notes) = case submission of
@@ -53,6 +58,9 @@ postEditR refid = do
             Right (x:_) -> Just x
             Right [] -> Nothing
         mergeRef = entry2Reference (text2Tags tagsText) notes
+        fileSubmission = case uploadFileResult of
+          FormSuccess (version, file) -> Just (fromMaybe (fileName file) version, file)
+          _ -> Nothing
 
     -- reference <- case reference of
     --   Nothing -> return Nothing
@@ -60,6 +68,12 @@ postEditR refid = do
     --               ref' <- touchReference ref
     --               return $ Just ref'
     reference <- touchMaybeReference (mergeRef <$> parsed)
+
+    _ <- case fileSubmission of
+      Nothing -> return Nothing
+      Just (version, file) -> do
+                              fileId <- insertFile refid version file
+                              return $ Just fileId
 
     case reference of
       Nothing -> return ()
@@ -76,6 +90,7 @@ editReferenceForm ref = renderDivs $ (,,)
   <*> aopt textField "Tags" (Just . tags2Text . referenceTags <$> ref)
   <*> aopt markdownField "Notes" (Just . referenceNotes <$> ref)
 
--- editReferenceForm :: Maybe Reference->Form Textarea
--- editReferenceForm ref =
---   renderDivs $ areq textareaField "Test form" $ Textarea . T.pack . BibF.entry . reference2Entry <$> ref
+addFileForm::Form (Maybe Text, FileInfo)
+addFileForm = renderDivs $ (,)
+  <$> aopt textField "Version" Nothing
+  <*> fileAFormReq "File"

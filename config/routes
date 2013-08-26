@@ -6,6 +6,7 @@
 
 / HomeR GET
 /upload UploadR GET POST
+/upload/#ReferenceFileId UploadedFileR GET DELETE
 /edit/#ReferenceId EditR GET POST
 /delete/#ReferenceId DeleteR GET POST
 /view/#ReferenceId ViewR GET

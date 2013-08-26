@@ -3,6 +3,7 @@ module Model where
 import Prelude
 import Yesod
 import Yesod.Markdown
+import qualified Data.ByteString as BS
 import Data.Text (Text)
 import Data.Time (UTCTime)
 import Data.Map
