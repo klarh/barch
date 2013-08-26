@@ -12,6 +12,12 @@ $maybe (Reference typ ident fields _ tags notes _) <- dbRef
       <tr>
         <td>Tags
         <td>#{T.intercalate ", " tags}
+      $if haveFiles
+        <tr>
+          <td>Files
+          <td>
+            $forall (Entity fid f) <- dbFiles
+              <a href=@{UploadedFileR fid}> #{referenceFileVersion f}
   <hr>
     #{markdownToHtml notes}
 $nothing
