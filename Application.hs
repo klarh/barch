@@ -24,6 +24,7 @@ import Handler.Delete
 import Handler.Home
 import Handler.Search
 import Handler.Upload
+import Handler.UploadedFile
 import Handler.View
 
 -- This line actually creates our YesodDispatch instance. It is the second half

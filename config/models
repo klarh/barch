@@ -17,5 +17,13 @@ Reference
     notes Markdown
     lastModified UTCTime
     deriving Show
+ReferenceFile
+    ref ReferenceId
+    version Text
+    type ContentType
+FileChunk
+    parent ReferenceFileId
+    index Int
+    contents BS.ByteString
 
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)

@@ -12,6 +12,7 @@ import Yesod.Markdown
 
 import Import
 import Barch.Adaptors
+import Barch.UploadUtils
 import Handler.Edit
 
 -- This is a handler function for the GET request method on the DeleteR
@@ -44,8 +45,11 @@ postDeleteR refid = do
     let handlerName = "postDeleteR" :: Text
         reference = Nothing
 
-    (formWidget, formEnctype) <- generateFormPost $ editReferenceForm dbRef
+    (editFormWidget, editFormEnctype) <- generateFormPost $ editReferenceForm dbRef
+    (uploadFileFormWidget, uploadFileFormEnctype) <- generateFormPost $ addFileForm
 
+    files <- referenceFiles refid
+    _ <- mapM deleteFile (entityKey <$> files)
     _ <- runDB $ delete refid
 
     defaultLayout $ do

@@ -10,6 +10,7 @@ import Yesod.Markdown
 
 import Import
 import Barch.Adaptors
+import Barch.UploadUtils
 import Handler.Edit
 
 -- This is a handler function for the GET request method on the UploadR
@@ -21,7 +22,8 @@ import Handler.Edit
 -- inclined, or create a single monolithic file.
 getUploadR :: Handler Html
 getUploadR = do
-    (formWidget, formEnctype) <- generateFormPost $ editReferenceForm Nothing
+    (editFormWidget, editFormEnctype) <- generateFormPost $ editReferenceForm Nothing
+    (uploadFileFormWidget, uploadFileFormEnctype) <- generateFormPost $ addFileForm
     let submission = Nothing :: Maybe Text
         handlerName = "getUploadR" :: Text
         fieldText = "" :: Text
@@ -33,9 +35,11 @@ getUploadR = do
 
 postUploadR :: Handler Html
 postUploadR = do
-    ((result, formWidget), formEnctype) <- runFormPost $ editReferenceForm Nothing
+    ((editResult, editFormWidget), editFormEnctype) <- runFormPost $ editReferenceForm Nothing
+    ((uploadFileResult, uploadFileFormWidget), uploadFileFormEnctype) <- runFormPost $ addFileForm
+
     let handlerName = "postUploadR" :: Text
-        submission = case result of
+        submission = case editResult of
             FormSuccess res -> Just res
             _ -> Nothing
         (bibText, tagsText, notes) = case submission of
