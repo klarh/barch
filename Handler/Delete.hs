@@ -46,7 +46,6 @@ postDeleteR refid = do
         reference = Nothing
 
     (editFormWidget, editFormEnctype) <- generateFormPost $ editReferenceForm dbRef
-    (uploadFileFormWidget, uploadFileFormEnctype) <- generateFormPost $ addFileForm
 
     files <- referenceFiles refid
     _ <- mapM deleteFile (entityKey <$> files)

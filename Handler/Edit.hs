@@ -26,7 +26,6 @@ getEditR refid = do
     dbRef <- runDB $ get refid
 
     (editFormWidget, editFormEnctype) <- generateFormPost $ editReferenceForm dbRef
-    (uploadFileFormWidget, uploadFileFormEnctype) <- generateFormPost $ addFileForm
 
     let submission = Nothing :: Maybe Text
         handlerName = "getEditR" :: Text
@@ -43,23 +42,22 @@ postEditR refid = do
     dbRef <- runDB $ get refid
 
     ((editResult, editFormWidget), editFormEnctype) <- runFormPost $ editReferenceForm dbRef
-    ((uploadFileResult, uploadFileFormWidget), uploadFileFormEnctype) <- runFormPost $ addFileForm
 
     let handlerName = "postEditR" :: Text
         submission = case editResult of
             FormSuccess res -> Just res
             _ -> Nothing
-        (bibText, tagsText, notes) = case submission of
-            Nothing -> ("" :: Text, ""::Text, Markdown "")
-            Just (b, t, n) -> (unTextarea b, fromMaybe "" t, fromMaybe (Markdown "") n)
+        (bibText, tagsText, notes, fVersion, fileRes) = case submission of
+            Nothing -> ("" :: Text, ""::Text, Markdown "", Nothing, Nothing)
+            Just (b, t, n, v, f) -> (unTextarea b, fromMaybe "" t, fromMaybe (Markdown "") n, v, f)
         parseRes = parse (BibP.skippingLeadingSpace BibP.file) "" (T.unpack bibText)
         parsed = case parseRes of
             Left _ -> Nothing
             Right (x:_) -> Just x
             Right [] -> Nothing
         mergeRef = entry2Reference (text2Tags tagsText) notes
-        fileSubmission = case uploadFileResult of
-          FormSuccess (version, file) -> Just (fromMaybe (fileName file) version, file)
+        fileSubmission = case fileRes of
+          Just file -> Just (fromMaybe (fileName file) fVersion, file)
           _ -> Nothing
 
     -- reference <- case reference of
@@ -84,13 +82,10 @@ postEditR refid = do
         setTitle "Barch: Edit"
         $(widgetFile "edit")
 
-editReferenceForm::Maybe Reference->Form (Textarea, Maybe Text, Maybe Markdown)
-editReferenceForm ref = renderDivs $ (,,)
+editReferenceForm::Maybe Reference->Form (Textarea, Maybe Text, Maybe Markdown, Maybe Text, Maybe FileInfo)
+editReferenceForm ref = renderDivs $ (,,,,)
   <$> areq textareaField "BibTeX Record" (Textarea . T.pack . BibF.entry . reference2Entry <$> ref)
   <*> aopt textField "Tags" (Just . tags2Text . referenceTags <$> ref)
   <*> aopt markdownField "Notes" (Just . referenceNotes <$> ref)
-
-addFileForm::Form (Maybe Text, FileInfo)
-addFileForm = renderDivs $ (,)
-  <$> aopt textField "Version" Nothing
-  <*> fileAFormReq "File"
+  <*> aopt textField "Version" Nothing
+  <*> fileAFormOpt "File"
