@@ -24,6 +24,7 @@ library
                      Barch.UploadUtils
                      Handler.Edit
                      Handler.Delete
+                     Handler.DeleteUploadedFile
                      Handler.Home
                      Handler.Search
                      Handler.Upload

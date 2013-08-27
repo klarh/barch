@@ -1,0 +1,8 @@
+<hr>
+$maybe (ReferenceFile _ version _) <- dbRef
+  Really delete the file <b>#{version}</b>?
+  <form method=post action=@{DeleteUploadedFileR refid}#form>
+    <input type="submit" value="Delete">
+$nothing
+  No matching entry found in the database.
+<hr>

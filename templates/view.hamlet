@@ -18,6 +18,7 @@ $maybe (Reference typ ident fields _ tags notes _) <- dbRef
           <td>
             $forall (Entity fid f) <- dbFiles
               <a href=@{UploadedFileR fid}> #{referenceFileVersion f}
+              <a href=@{DeleteUploadedFileR fid}>(X)
   <hr>
     #{markdownToHtml notes}
 $nothing
