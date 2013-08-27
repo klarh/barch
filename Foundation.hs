@@ -71,6 +71,12 @@ instance Yesod App where
         (120 * 60) -- 120 minutes
         "config/client_session_key.aes"
 
+    -- Let the upload and edit handlers take requests of 250M
+    maximumContentLength _ handler = case handler of
+      Just (EditR _) -> Just (1024*1024*250)
+      Just UploadR -> Just (1024*1024*250)
+      _ -> Just (1024*1024*2) -- Default: 2MB
+
     defaultLayout widget = do
         master <- getYesod
         mmsg <- getMessage
