@@ -23,7 +23,6 @@ import Handler.Edit
 getUploadR :: Handler Html
 getUploadR = do
     (editFormWidget, editFormEnctype) <- generateFormPost $ editReferenceForm Nothing
-    (uploadFileFormWidget, uploadFileFormEnctype) <- generateFormPost $ addFileForm
     let submission = Nothing :: Maybe Text
         handlerName = "getUploadR" :: Text
         fieldText = "" :: Text
@@ -36,24 +35,35 @@ getUploadR = do
 postUploadR :: Handler Html
 postUploadR = do
     ((editResult, editFormWidget), editFormEnctype) <- runFormPost $ editReferenceForm Nothing
-    ((uploadFileResult, uploadFileFormWidget), uploadFileFormEnctype) <- runFormPost $ addFileForm
 
     let handlerName = "postUploadR" :: Text
         submission = case editResult of
             FormSuccess res -> Just res
             _ -> Nothing
-        (bibText, tagsText, notes) = case submission of
-            Nothing -> ("" :: Text, ""::Text, Markdown "")
-            Just (b, t, n) -> (unTextarea b, fromMaybe "" t, fromMaybe (Markdown "") n)
+        (bibText, tagsText, notes, fVersion, fileRes) = case submission of
+            Nothing -> ("" :: Text, ""::Text, Markdown "", Nothing, Nothing)
+            Just (b, t, n, v, f) -> (unTextarea b, fromMaybe "" t, fromMaybe (Markdown "") n, v, f)
         parseRes = parse (BibP.skippingLeadingSpace BibP.file) "" (T.unpack bibText)
         parsed = case parseRes of
             Left err -> []
             Right xs -> xs
         references' = entry2Reference (text2Tags tagsText) notes <$> parsed
+        fileSubmission = case fileRes of
+          Just file -> Just (fromMaybe (fileName file) fVersion, file)
+          _ -> Nothing
+
 
     references <- mapM touchReference references'
 
-    _ <- runDB $ insertMany references
+    refids <- runDB $ insertMany references
+
+    _ <- case fileSubmission of
+      Nothing -> return Nothing
+      Just (version, file) -> case refids of
+        [] -> return Nothing
+        (refid:_) -> do
+                       fileId <- insertFile refid version file
+                       return $ Just fileId
 
     defaultLayout $ do
         aDomId <- newIdent

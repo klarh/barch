@@ -24,8 +24,4 @@ $nothing
         <input type="submit" value="Undo">
       $else
         <input type="submit" value="Edit">
-  <div #uploadfileform>
-    <form method=post action=@{EditR refid}#uploadfileform enctype=#{uploadFileFormEnctype}>
-      ^{uploadFileFormWidget}
-      <input type="submit" value="Upload">
 <hr>
