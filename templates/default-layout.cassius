@@ -31,6 +31,9 @@ textarea
   height:20em
   background-color:#ebe7e4
 
+th, td
+  padding: .5em 1em
+
 hr
   noshade:true
   border-color:#373d61

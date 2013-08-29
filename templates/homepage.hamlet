@@ -24,10 +24,10 @@ First 10 entries in database:
       <table>
         $forall field <- (M.toList fields)
           <tr>
-            <td>#{fst field}
+            <th>#{fst field}
             <td>#{snd field}
         <tr>
-          <td>Tags
+          <th>Tags
           <td>
             $forall tag <- tags
               \ <a href=@{SearchR $ T.append "#" (wrapTag tag)}> ##{tag}
