@@ -5,6 +5,7 @@ import Data.Maybe
 import qualified Data.Map as M
 import qualified Data.Text as T
 import Text.Parsec
+import Text.Parsec.Error
 import qualified Text.BibTeX.Parse as BibP
 --import qualified Text.BibTeX.Entry as BibE
 import qualified Text.BibTeX.Format as BibF
@@ -32,6 +33,8 @@ getEditR refid = do
         fieldText = "" :: Text
         parsed = Nothing
         reference = Nothing
+        parseErrors = []
+        haveErrors = False
     defaultLayout $ do
         aDomId <- newIdent
         setTitle "Barch: Edit"
@@ -55,6 +58,10 @@ postEditR refid = do
             Left _ -> Nothing
             Right (x:_) -> Just x
             Right [] -> Nothing
+        parseErrors = case parseRes of
+          Left err -> errorMessages err
+          _ -> []
+        haveErrors = not . null $ parseErrors
         mergeRef = entry2Reference (text2Tags tagsText) notes
         fileSubmission = case fileRes of
           Just file -> Just (fromMaybe (fileName file) fVersion, file)

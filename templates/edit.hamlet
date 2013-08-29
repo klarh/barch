@@ -1,5 +1,10 @@
 <h1>_{MsgEdit}
 <hr>
+$if haveErrors
+  Errors during parsing:
+  <ul>
+    $forall pError <- parseErrors
+      <li>#{messageString pError}
 $maybe (Reference typ ident fields _ tags notes _) <- reference
   The following entry was edited:
   <div>
