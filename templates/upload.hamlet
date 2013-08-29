@@ -1,5 +1,10 @@
 <h1>_{MsgUpload}
 <hr>
+$if haveErrors
+  Errors during parsing:
+  <ul>
+    $forall pError <- errors
+      <li>#{messageString pError}
 $maybe _ <- submission
   The following entries were uploaded:
     $forall entry <- parsed

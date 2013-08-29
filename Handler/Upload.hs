@@ -4,6 +4,7 @@ module Handler.Upload where
 import Data.Maybe
 import qualified Data.Text as T
 import Text.Parsec
+import Text.Parsec.Error
 import qualified Text.BibTeX.Parse as BibP
 import qualified Text.BibTeX.Entry as BibE
 import Yesod.Markdown
@@ -27,6 +28,8 @@ getUploadR = do
         handlerName = "getUploadR" :: Text
         fieldText = "" :: Text
         parsed = []
+        errors = []
+        haveErrors = False
     defaultLayout $ do
         aDomId <- newIdent
         setTitle "Barch: Upload"
@@ -47,6 +50,10 @@ postUploadR = do
         parsed = case parseRes of
             Left err -> []
             Right xs -> xs
+        errors = case parseRes of
+          Left err -> errorMessages err
+          _ -> []
+        haveErrors = not . null $ errors
         references' = entry2Reference (text2Tags tagsText) notes <$> parsed
         fileSubmission = case fileRes of
           Just file -> Just (fromMaybe (fileName file) fVersion, file)

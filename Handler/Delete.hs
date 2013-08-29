@@ -5,6 +5,7 @@ import Data.Maybe
 import qualified Data.Map as M
 import qualified Data.Text as T
 import Text.Parsec
+import Text.Parsec.Error
 import qualified Text.BibTeX.Parse as BibP
 --import qualified Text.BibTeX.Entry as BibE
 import qualified Text.BibTeX.Format as BibF
@@ -32,6 +33,8 @@ getDeleteR refid = do
         fieldText = "" :: Text
         parsed = Nothing
         reference = Nothing
+        parseErrors = []
+        haveErrors = False
 
     defaultLayout $ do
         aDomId <- newIdent
@@ -44,6 +47,8 @@ postDeleteR refid = do
 
     let handlerName = "postDeleteR" :: Text
         reference = Nothing
+        parseErrors = []
+        haveErrors = False
 
     (editFormWidget, editFormEnctype) <- generateFormPost $ editReferenceForm dbRef
 
