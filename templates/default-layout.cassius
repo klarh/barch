@@ -32,7 +32,7 @@ textarea
   background-color:#ebe7e4
 
 th, td
-  padding: .5em 1em
+  padding: .125em .5em
 
 hr
   noshade:true

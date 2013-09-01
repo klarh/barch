@@ -1,0 +1,25 @@
+<div>
+  $if makeLink
+    <h2>#{typ}: #{ident}
+  $else
+    <h2>
+      #{typ}: #{ident}
+        <a href=@{EditR refid} > (Edit)
+        <a href=@{DeleteR refid}> (Delete)
+  <table>
+    $forall (key, val) <- M.toList fields
+      <tr>
+        <th>#{key}
+        <td>#{val}
+    <tr>
+      <th>Tags
+      <td>#{T.intercalate ", " tags}
+    $if haveFiles
+      <tr>
+        <th>Files
+        <td>
+          $forall (Entity fid f) <- dbFiles
+            <a href=@{UploadedFileR fid}> #{referenceFileVersion f}
+            <a href=@{DeleteUploadedFileR fid}>(X)
+<hr>
+  #{markdownToHtml notes}
