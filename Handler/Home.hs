@@ -7,9 +7,9 @@ import Import
 import Barch.Adaptors
 import Barch.Widgets (shortReferenceView)
 
-getHomeR :: Handler Html
-getHomeR = do
-    citations <- runDB $ selectList [] [Desc ReferenceLastModified, LimitTo 10]
+getHomeR::Int->Handler Html
+getHomeR page = do
+    citations <- runDB $ selectList [] [Desc ReferenceLastModified, LimitTo 30, OffsetBy (30*page)]
     let submission = Nothing :: Maybe (FileInfo, Text)
         handlerName = "getHomeR" :: Text
     defaultLayout $ do
