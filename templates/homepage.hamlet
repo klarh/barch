@@ -1,20 +1,3 @@
-<h1>_{MsgHello}
-Ideas
-<ul>
-  <li>Initial features
-    <ul>
-      <li>add/edit/search citations
-      <li>upload/manage files associated with citations
-  <li>future features
-    <ul>
-      <li>some sort of intelligent merging of repeated references
-      <li>search within text of pdf's
-      <li>inter-node communication
-      <ul>
-        <li>make lists of citations to share with other nodes
-        <li>RSS feed?
-      <li>integration with some api's from google scholar, arxiv, etc
-
-First 10 entries in database:
+<h1>Browse
 <ul>
   ^{mconcat (shortReferenceView <$> citations)}
