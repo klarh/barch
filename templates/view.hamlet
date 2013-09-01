@@ -1,26 +1,6 @@
 <hr>
-$maybe (Reference typ ident fields _ tags notes _) <- dbRef
-  <div>
-    <h1>#{typ}: #{ident}
-      <a href=@{EditR refid} > (Edit)
-      <a href=@{DeleteR refid}> (Delete)
-    <table>
-      $forall field <- (M.toList fields)
-        <tr>
-          <td>#{fst field}
-          <td>#{snd field}
-      <tr>
-        <td>Tags
-        <td>#{T.intercalate ", " tags}
-      $if haveFiles
-        <tr>
-          <td>Files
-          <td>
-            $forall (Entity fid f) <- dbFiles
-              <a href=@{UploadedFileR fid}> #{referenceFileVersion f}
-              <a href=@{DeleteUploadedFileR fid}>(X)
-  <hr>
-    #{markdownToHtml notes}
+$maybe ref <- dbRef
+  ^{fullReferenceWithFiles False (Entity refid ref)}
 $nothing
   Entry not found in database
 <hr>

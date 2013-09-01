@@ -1,0 +1,15 @@
+<div>
+  $if makeLink
+    <h2>#{typ}: #{ident}
+  $else
+    #{typ}: #{ident}
+  <table>
+    $forall (key, val) <- M.toList fields
+      <tr>
+        <th>#{key}
+        <td>#{val}
+    <tr>
+      <th>Tags
+      <td>#{T.intercalate ", " tags}
+<hr>
+  #{markdownToHtml notes}

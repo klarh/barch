@@ -1,0 +1,13 @@
+<div>
+  <a href=@{ViewR refid} >
+    <h3>#{typ}: #{ident}
+  <table>
+    $forall field <- (M.toList fields)
+      <tr>
+        <th>#{fst field}
+        <td>#{snd field}
+    <tr>
+      <th>Tags
+      <td>
+        $forall tag <- tags
+          \ <a href=@{SearchR $ T.append "#" (wrapTag tag)}> ##{tag}

@@ -14,6 +14,7 @@ import Yesod.Markdown
 import Import
 import Barch.Adaptors
 import Barch.UploadUtils
+import Barch.Widgets (fullReferenceView)
 import Handler.Edit
 
 -- This is a handler function for the GET request method on the DeleteR

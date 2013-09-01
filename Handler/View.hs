@@ -11,6 +11,7 @@ import qualified Data.Text as T
 import Yesod.Markdown
 
 import Import
+import Barch.Widgets (fullReferenceWithFiles)
 --import Adaptors
 
 -- This is a handler function for the GET request method on the ViewR
