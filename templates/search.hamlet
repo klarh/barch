@@ -3,18 +3,8 @@
 $if wasQuery
   $if anyMatches
     The following records were found:
-    $forall Entity refid (Reference typ ident fields _ tags _ _) <- matches
-      <div>
-        <a href=@{ViewR refid} >
-          <h3>#{typ}: #{ident}
-        <table>
-          $forall field <- (M.toList fields)
-            <tr>
-              <td>#{fst field}
-              <td>#{snd field}
-          <tr>
-            <td>Tags
-            <td>#{T.intercalate ", " tags}
+    $forall match <- matches
+      ^{shortReferenceView match}
   $else
     No results found.
 $else
