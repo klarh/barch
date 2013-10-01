@@ -13,7 +13,8 @@ pageLimit = 30
 getBrowseR::Int->Handler Html
 getBrowseR page = do
     citations <- runDB $ selectList [] [Desc ReferenceLastModified, LimitTo (pageLimit + 1), OffsetBy (pageLimit*page)]
-    let submission = Nothing :: Maybe (FileInfo, Text)
+    let action = "Browse" :: Text
+        submission = Nothing :: Maybe (FileInfo, Text)
         handlerName = "getBrowseR" :: Text
         moreCitations = (length citations) > pageLimit
         citations' = take pageLimit citations
