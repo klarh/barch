@@ -1,4 +1,4 @@
-<h1>Browse
+<h1>#{action}
 <ul>
   ^{mconcat (shortReferenceView <$> citations)}
 <div>

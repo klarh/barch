@@ -3,9 +3,15 @@
     <h3>#{typ}: #{ident}
   <table>
     $forall field <- (M.toList fields)
-      <tr>
-        <th>#{fst field}
-        <td>#{snd field}
+      $case parseBibUrl field
+        $of Left (key, val)
+          <tr>
+            <th>#{key}
+            <td>#{val}
+        $of Right (key, val)
+          <tr>
+            <th>#{key}
+            <td>#{val}
     <tr>
       <th>Tags
       <td>

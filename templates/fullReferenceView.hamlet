@@ -4,10 +4,16 @@
   $else
     #{typ}: #{ident}
   <table>
-    $forall (key, val) <- M.toList fields
-      <tr>
-        <th>#{key}
-        <td>#{val}
+    $forall field <- (M.toList fields)
+      $case parseBibUrl field
+        $of Left (key, val)
+          <tr>
+            <th>#{key}
+            <td>#{val}
+        $of Right (key, val)
+          <tr>
+            <th>#{key}
+            <td>#{val}
     <tr>
       <th>Tags
       <td>#{T.intercalate ", " tags}
