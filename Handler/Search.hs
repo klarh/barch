@@ -11,6 +11,7 @@ import Text.Parsec
 
 import Import
 import qualified Barch.QueryParser as Q
+import Barch.Widgets
 --import Barch.Adaptors
 
 -- query2DBFilter: take a list of query elements and return the
