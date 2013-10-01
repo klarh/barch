@@ -30,7 +30,7 @@ query2Filter::[Q.Elt]->(Entity Reference->Bool)
 query2Filter q =
   \ref -> foldl (&&) True $ pure f <*> q <*> pure ref
   where
-    f (Q.Field k v) (Entity _ ref) = T.isInfixOf v ((referenceFields ref) M.! k)
+    f (Q.Field k v) (Entity _ ref) = T.isInfixOf v (T.toLower $ (referenceFields ref) M.! k)
     f (Q.Plain t) (Entity _ ref) = t `occursIn` ref
     f (Q.Tag _) _ = True
 
@@ -39,7 +39,7 @@ occursIn::Text->Reference->Bool
 occursIn txt (Reference typ ident fields _ tags notes _) =
   inList [typ, ident, unMarkdown notes] || inFields || inTags
   where
-    inList = any (T.isInfixOf txt)
+    inList = any (T.isInfixOf txt . T.toLower)
     inFields = (inList . M.keys) fields || (inList . M.elems) fields
     inTags = inList tags
 
