@@ -1,6 +1,8 @@
 <div class="navAll">
   <div class="navDiv">
-      <a class="navBar" href=@{HomeR 0}> Browse
+      <a class="navBar" href=@{HomeR}> Home
+  <div class="navDiv">
+      <a class="navBar" href=@{BrowseR 0}> Browse
   <div class="navDiv">
       <a class="navBar" href=@{UploadR}> Upload
   <div class="navDiv">

@@ -38,4 +38,4 @@ postDeleteUploadedFileR refid = do
     defaultLayout $ do
       aDomId <- newIdent
       setTitle "Barch: Delete Upload"
-      redirect $ HomeR 0
+      redirect $ HomeR

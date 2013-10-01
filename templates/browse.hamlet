@@ -1,0 +1,9 @@
+<h1>Browse
+<ul>
+  ^{mconcat (shortReferenceView <$> citations)}
+<div>
+  <center>
+    $if page > 0
+      <a href=@{BrowseR (page - 1)}> Prev
+    $if moreCitations
+      <a href=@{BrowseR (page + 1)}> Next
