@@ -23,6 +23,7 @@ library
                      Barch.QueryParser
                      Barch.UploadUtils
                      Barch.Widgets
+                     Handler.Browse
                      Handler.Edit
                      Handler.Delete
                      Handler.DeleteUploadedFile

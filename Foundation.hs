@@ -135,9 +135,9 @@ instance YesodAuth App where
     type AuthId App = UserId
 
     -- Where to send a user after successful login
-    loginDest _ = HomeR 0
+    loginDest _ = HomeR
     -- Where to send a user after logout
-    logoutDest _ = HomeR 0
+    logoutDest _ = HomeR
 
     getAuthId creds = runDB $ do
         x <- getBy $ UniqueUser $ credsIdent creds

@@ -1,5 +1,5 @@
 {-# LANGUAGE TupleSections, OverloadedStrings #-}
-module Handler.Home where
+module Handler.Browse where
 
 import qualified Data.Map as M
 import qualified Data.Text as T
@@ -10,13 +10,12 @@ import Barch.Widgets (shortReferenceView)
 pageLimit::Int
 pageLimit = 30
 
-getHomeR::Handler Html
-getHomeR = do
-    citations <- runDB $ selectList [] [Desc ReferenceLastModified, LimitTo (pageLimit + 1), OffsetBy 0]
-    let page = 0
-        submission = Nothing :: Maybe (FileInfo, Text)
-        handlerName = "getHomeR" :: Text
-        moreCitations = False
+getBrowseR::Int->Handler Html
+getBrowseR page = do
+    citations <- runDB $ selectList [] [Desc ReferenceLastModified, LimitTo (pageLimit + 1), OffsetBy (pageLimit*page)]
+    let submission = Nothing :: Maybe (FileInfo, Text)
+        handlerName = "getBrowseR" :: Text
+        moreCitations = (length citations) > pageLimit
         citations' = take pageLimit citations
     defaultLayout $ do
         aDomId <- newIdent

@@ -1,3 +1,0 @@
-<h1>Browse
-<ul>
-  ^{mconcat (shortReferenceView <$> citations)}
