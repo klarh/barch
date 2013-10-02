@@ -37,7 +37,7 @@ entry2Reference'::[Text]->Markdown->Bib.T->(UTCTime->Reference)
 entry2Reference' tags notes (Bib.Cons typ ident fields) =
   Reference (pack typ) (pack ident) fields' (M.keys fields') tags notes
   where
-    fields' = (M.map pack . M.mapKeys pack) $ M.fromList fields
+    fields' = (M.map pack . M.mapKeys (T.toLower . pack)) $ M.fromList fields
 
 reference2Entry::Reference->Bib.T
 reference2Entry (Reference typ ident fields _ _ _ _) =

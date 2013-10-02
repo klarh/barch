@@ -31,7 +31,7 @@ query2Filter::[Q.Elt]->(Entity Reference->Bool)
 query2Filter q =
   \ref -> foldl (&&) True $ pure f <*> q <*> pure ref
   where
-    f (Q.Field k v) (Entity _ ref) = T.isInfixOf v (T.toLower $ (referenceFields ref) M.! k)
+    f (Q.Field k v) (Entity _ ref) = T.isInfixOf v ((referenceFields ref) M.! k)
     f (Q.Plain t) (Entity _ ref) = t `occursIn` ref
     f (Q.Tag _) _ = True
 
