@@ -80,7 +80,7 @@ postSearchR::Text->Handler Html
 postSearchR query = do
     ((result, formWidget), formEnctype) <- runFormPost $ searchReferenceForm
     let submission = case result of
-          FormSuccess res -> res
+          FormSuccess res -> T.toLower res
           _ -> ""
         fieldQuery = parse Q.line "" submission
         queryDBFilter = case fieldQuery of
