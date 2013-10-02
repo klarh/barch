@@ -61,6 +61,6 @@ tags2Text xs = T.intercalate " " (wrapTag <$> xs)
 parseBibUrl::(Text, Text)->Either (Text, Text) (Text, Html)
 parseBibUrl (key, val) = case (T.toLower key) of
   "url" -> Right $ (key, [shamlet|<a href="#{val}">#{val}</a>|])
-  "eprint" -> Right $ (key, [shamlet|<a href="#{val}">#{val}</a>|])
+--  "eprint" -> Right $ (key, [shamlet|<a href="#{val}">#{val}</a>|])
   "doi" -> Right $ (key, [shamlet|<a href="doi://#{val}">#{val}</a>|])
   _ -> Left (key, val)
