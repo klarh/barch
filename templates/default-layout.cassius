@@ -56,4 +56,4 @@ div.navDiv
 a.navBar
   text-decoration:none
   color:#ebe7e4
-  margin:1em 1em
+  margin:0.5em 0.5em
