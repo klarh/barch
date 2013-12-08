@@ -7,7 +7,6 @@ import qualified Data.Text as T
 import Text.Parsec
 import Text.Parsec.Error
 import qualified Text.BibTeX.Parse as BibP
---import qualified Text.BibTeX.Entry as BibE
 import qualified Text.BibTeX.Format as BibF
 import Yesod.Markdown
 
@@ -17,13 +16,6 @@ import Barch.UploadUtils
 import Barch.Widgets (fullReferenceView)
 import Handler.Edit
 
--- This is a handler function for the GET request method on the DeleteR
--- resource pattern. All of your resource patterns are defined in
--- config/routes
---
--- The majority of the code you will write in Yesod lives in these handler
--- functions. You can spread them across multiple files if you are so
--- inclined, or create a single monolithic file.
 getDeleteR :: ReferenceId->Handler Html
 getDeleteR refid = do
     dbRef <- runDB $ get refid

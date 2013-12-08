@@ -1,7 +1,6 @@
 {-# LANGUAGE TupleSections, OverloadedStrings #-}
 module Handler.Search where
 
---import qualified Data.Conduit.List as C
 import Yesod.Markdown
 import Data.Maybe
 import Database.Persist.MongoDB
@@ -12,10 +11,9 @@ import Text.Parsec
 import Import
 import qualified Barch.QueryParser as Q
 import Barch.Widgets
---import Barch.Adaptors
 
--- query2DBFilter: take a list of query elements and return the
--- database query to run
+-- | take a list of query elements and return the database query to
+-- run
 query2DBFilter::[Q.Elt]->[Filter Reference]
 query2DBFilter =
   mapMaybe f
@@ -24,9 +22,9 @@ query2DBFilter =
     f (Q.Tag t) = Just $ multiEq ReferenceTags t
     f _ = Nothing
 
--- query2Filter: take a list of query elements and return the function
--- to filter the results of the databse query by; assumes that tags
--- have already been checked, for example
+-- | take a list of query elements and return the function to filter
+-- the results of the databse query by; assumes that tags have already
+-- been checked, for example
 query2Filter::[Q.Elt]->(Entity Reference->Bool)
 query2Filter q =
   \ref -> foldl (&&) True $ pure f <*> q <*> pure ref
@@ -35,7 +33,7 @@ query2Filter q =
     f (Q.Plain t) (Entity _ ref) = t `occursIn` ref
     f (Q.Tag _) _ = True
 
--- occursIn: return true if the given text occurs in any fields of a reference
+-- | return true if the given text occurs in any fields of a reference
 occursIn::Text->Reference->Bool
 occursIn txt (Reference typ ident fields _ tags notes _) =
   inList [typ, ident, unMarkdown notes] || inFields || inTags
@@ -44,13 +42,6 @@ occursIn txt (Reference typ ident fields _ tags notes _) =
     inFields = (inList . M.keys) fields || (inList . M.elems) fields
     inTags = inList tags
 
--- This is a handler function for the GET request method on the SearchR
--- resource pattern. All of your resource patterns are defined in
--- config/routes
---
--- The majority of the code you will write in Yesod lives in these handler
--- functions. You can spread them across multiple files if you are so
--- inclined, or create a single monolithic file.
 getSearchR::Text->Handler Html
 getSearchR query = do
     let submission = ""

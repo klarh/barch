@@ -14,13 +14,6 @@ import Barch.Adaptors
 import Barch.UploadUtils
 import Handler.Edit
 
--- This is a handler function for the GET request method on the UploadR
--- resource pattern. All of your resource patterns are defined in
--- config/routes
---
--- The majority of the code you will write in Yesod lives in these handler
--- functions. You can spread them across multiple files if you are so
--- inclined, or create a single monolithic file.
 getUploadR :: Handler Html
 getUploadR = do
     (editFormWidget, editFormEnctype) <- generateFormPost $ editReferenceForm Nothing
@@ -59,7 +52,6 @@ postUploadR = do
           Just file -> Just (fromMaybe (fileName file) fVersion, file)
           _ -> Nothing
 
-
     references <- mapM touchReference references'
 
     refids <- runDB $ insertMany references
@@ -76,9 +68,3 @@ postUploadR = do
         aDomId <- newIdent
         setTitle "Barch: Upload"
         $(widgetFile "upload")
-
--- uploadRecordForm::Form (Textarea, Maybe Text, Markdown)
--- uploadRecordForm = renderDivs $ (,,)
---   <$> areq textareaField "BibTeX Record" Nothing
---   <*> aopt textField "Tags" Nothing
---   <*> areq markdownField "Notes" Nothing
