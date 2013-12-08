@@ -8,16 +8,16 @@ import Text.Parsec
 import Text.Parsec.Text
 import Text.Parsec.Token
 
--- Term: a single blob of text, possibly with spaces if enclosed by quotes
+-- | A single blob of text, possibly with spaces if enclosed by quotes
 type Term = Text
 
--- Elt: corresponds to a single term in our search language
+-- | Corresponds to a single term in our search language
 data Elt = Plain {unPlain::Term} |
            Field {unFieldKey::Text, unFieldVal::Term} |
            Tag {unTag::Term}
            deriving Show
 
--- elt2Tag: translate any element into a tag
+-- | Translate any element into a tag
 elt2Tag::Elt->Elt
 elt2Tag (Plain x) = Tag x
 elt2Tag (Field key val) = Tag $ key `append` (':' `cons` val)

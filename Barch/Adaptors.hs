@@ -15,13 +15,13 @@ import Yesod.Markdown
 import Model
 import qualified Barch.QueryParser as Q
 
--- touchReference: update the update time of a Reference to now
+-- | Update the update time of a Reference to now
 touchReference::MonadIO m=>Reference->m Reference
 touchReference ref = do
   time <- liftIO getCurrentTime
   return $ ref {referenceLastModified = time}
 
--- touchMaybeReference: update the update time of a Maybe Reference to now
+-- | Update the update time of a Maybe Reference to now
 touchMaybeReference::MonadIO m=>Maybe Reference->m (Maybe Reference)
 touchMaybeReference mref = do
   case mref of
@@ -47,9 +47,8 @@ reference2Entry (Reference typ ident fields _ _ _ _) =
 
 text2Tags::Text->[Text]
 text2Tags t = Q.unTag <$> (either (\_->[]) id $ parse Q.tags "" t)
---text2Tags t = Prelude.filter (not . T.null) $ T.strip <$> T.splitOn (" "::Text) t
 
--- wrapTag: wrap a tag in quotation marks if it contains any spaces
+-- | Wrap a tag in quotation marks if it contains any spaces
 wrapTag::Text->Text
 wrapTag x
   | T.any (==' ') x = T.snoc ('"' `T.cons` x) '"'
