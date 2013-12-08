@@ -16,13 +16,6 @@ import Barch.Adaptors
 import Barch.UploadUtils
 import Barch.Widgets (fullReferenceView)
 
--- This is a handler function for the GET request method on the EditR
--- resource pattern. All of your resource patterns are defined in
--- config/routes
---
--- The majority of the code you will write in Yesod lives in these handler
--- functions. You can spread them across multiple files if you are so
--- inclined, or create a single monolithic file.
 getEditR :: ReferenceId->Handler Html
 getEditR refid = do
     dbRef <- runDB $ get refid
@@ -68,11 +61,6 @@ postEditR refid = do
           Just file -> Just (fromMaybe (fileName file) fVersion, file)
           _ -> Nothing
 
-    -- reference <- case reference of
-    --   Nothing -> return Nothing
-    --   Just ref -> do
-    --               ref' <- touchReference ref
-    --               return $ Just ref'
     reference <- touchMaybeReference (mergeRef <$> parsed)
 
     _ <- case fileSubmission of
