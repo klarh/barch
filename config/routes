@@ -18,4 +18,6 @@
 
 /cart/add/#ReferenceId AddCartR POST
 /cart/remove/#ReferenceId RemoveCartR POST
+/cart/clear ClearCartR POST
 /cart/view ViewCartR GET
+/cart/export ExportCartR GET

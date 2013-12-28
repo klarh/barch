@@ -2,9 +2,10 @@
 module Handler.Cart where
 
 import Import
+import Barch.Adaptors (reference2Entry)
 import Barch.Cart
 import Barch.Widgets (shortReferenceView)
-import Data.Maybe (catMaybes)
+import qualified Text.BibTeX.Format as BibF
 
 postAddCartR::ReferenceId->Handler ()
 postAddCartR refid = do
@@ -16,13 +17,28 @@ postRemoveCartR refid = do
   removeFromCart refid
   redirect ViewCartR
 
+postClearCartR::Handler ()
+postClearCartR = do
+  clearCart
+  redirect HomeR
+
 getViewCartR::Handler Html
 getViewCartR = do
-  cartIds <- listCart
-  maybeCartItems <- mapM runDB $ get <$> cartIds
-  let cartItems = catMaybes . zipWith (\key val -> Entity key <$> val) cartIds $ maybeCartItems
+  cartItems <- listCartItems
 
   defaultLayout $ do
     aDomId <- newIdent
     setTitle "Barch: View Cart"
     $(widgetFile "cart")
+
+getExportCartR::Handler Html
+getExportCartR = do
+  cartItems <- listCartItems
+
+  let getRef (Entity _ ref) = ref
+      entries = BibF.entry . reference2Entry . getRef <$> cartItems
+
+  defaultLayout $ do
+    aDomId <- newIdent
+    setTitle "Barch: Export Cart"
+    $(widgetFile "exportCart")
