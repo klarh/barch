@@ -5,6 +5,7 @@ import Import
 import Barch.Adaptors (reference2Entry)
 import Barch.Cart
 import Barch.Widgets (shortReferenceView)
+import Data.Monoid (mconcat)
 import qualified Text.BibTeX.Format as BibF
 
 postAddCartR::ReferenceId->Handler ()
@@ -33,12 +34,18 @@ getViewCartR = do
 
 getExportCartR::Handler Html
 getExportCartR = do
-  cartItems <- listCartItems
-
-  let getRef (Entity _ ref) = ref
-      entries = BibF.entry . reference2Entry . getRef <$> cartItems
+  entries <- map (BibF.entry . reference2Entry . entityVal) <$> listCartItems
 
   defaultLayout $ do
     aDomId <- newIdent
     setTitle "Barch: Export Cart"
     $(widgetFile "exportCart")
+
+getExportCartBibR::Handler TypedContent
+getExportCartBibR = do
+  items <- listCartItems
+
+  let bibEntries = BibF.entry . reference2Entry . entityVal <$> items
+      bibText = toContent . mconcat $ bibEntries
+
+  return $ TypedContent typePlain bibText
