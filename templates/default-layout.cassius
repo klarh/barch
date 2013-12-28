@@ -24,7 +24,7 @@ input[type=submit]
   background-color:#f7f3de
 
 input[type=text]
-  width=75%
+  width:75%
   background-color:#ebe7e4
 textarea
   width:75%
