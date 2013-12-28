@@ -20,10 +20,12 @@ library
                      Settings.StaticFiles
                      Settings.Development
                      Barch.Adaptors
+                     Barch.Cart
                      Barch.QueryParser
                      Barch.UploadUtils
                      Barch.Widgets
                      Handler.Browse
+                     Handler.Cart
                      Handler.Edit
                      Handler.Delete
                      Handler.DeleteUploadedFile

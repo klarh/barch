@@ -2,7 +2,7 @@ body
   color:#1f1f1f
   font-family: 'Merriweather', serif;
   background-color:#f7f3de
-  font-size:16px
+  font-size:1em
 h1, h2, h3, h4, h5, h6
   font-family: 'Ledger', serif;
 
@@ -57,3 +57,10 @@ a.navBar
   text-decoration:none
   color:#ebe7e4
   margin:0.5em 0.5em
+
+.entryActionBox
+  display:inline
+  float:right
+.entryAction
+  display:inline
+  margin:0em .25em

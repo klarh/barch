@@ -4,7 +4,7 @@ $if wasQuery
   $if anyMatches
     The following records were found:
     $forall match <- matches
-      ^{shortReferenceView match}
+      ^{shortReferenceView False match}
   $else
     No results found.
 $else
