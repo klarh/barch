@@ -4,7 +4,7 @@
       <h3 style="display:inline">#{typ}: #{ident}
       <span class="entryActionBox">
         $if inCart
-          <form method="post" action=@{AddCartR refid} class="entryAction" >
+          <form method="post" action=@{RemoveCartR refid} class="entryAction" >
             <input type="submit" value="-Cart" />
         $else
           <form method="post" action=@{AddCartR refid} class="entryAction" >
