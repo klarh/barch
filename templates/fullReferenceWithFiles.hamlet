@@ -1,11 +1,14 @@
 <div>
-  $if makeLink
-    <h2>#{typ}: #{ident}
-  $else
-    <h2>
-      #{typ}: #{ident}
-        <a href=@{EditR refid} > (Edit)
-        <a href=@{DeleteR refid}> (Delete)
+  <div>
+    <h2 style="display:inline">#{typ}: #{ident}
+    <span class="entryActionBox">
+      <form method="get" action=@{EditR refid} class="entryAction" >
+        <input type="submit" value="Edit" />
+      <form method="get" action=@{DeleteR refid} class="entryAction" >
+        <input type="submit" value="Delete" />
+      <form method="post" action=@{AddCartR refid} class="entryAction" >
+        <input type="submit" value="+Cart" />
+
   <table>
     $forall field <- (M.toList fields)
       $case parseBibUrl field
