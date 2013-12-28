@@ -21,3 +21,4 @@
 /cart/clear ClearCartR POST
 /cart/view ViewCartR GET
 /cart/export ExportCartR GET
+/cart/export/bib ExportCartBibR GET
