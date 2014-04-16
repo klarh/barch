@@ -49,7 +49,7 @@ div.navAll
   background-color:#373d61
   border-radius:.2em
 div.navDiv
-  margin:1em 1em
+  margin:1em 0.5em
   float:left
 /* div.navDiv:hover
   background-color:#bfc9d9 */
