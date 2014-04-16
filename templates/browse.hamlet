@@ -1,6 +1,6 @@
 <h1>#{action}
 <ul>
-  ^{mconcat (shortReferenceView <$> citations)}
+  ^{mconcat (shortReferenceView False <$> citations)}
 <div>
   <center>
     $if page > 0

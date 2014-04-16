@@ -1,0 +1,16 @@
+<div>
+  <h1 style="display:inline" > View Cart
+  <span class="entryActionBox">
+    <form method="post" action=@{ClearCartR} class="entryAction" >
+      <input type="submit" value="Clear Cart" />
+    <form method="get" action=@{ExportCartR} class="entryAction" >
+      <input type="submit" value="Export Cart" />
+<ul>
+  $forall item <- cartItems
+    <li> ^{shortReferenceView True item}
+<div>
+  <span class="entryActionBox">
+    <form method="post" action=@{ClearCartR} class="entryAction" >
+      <input type="submit" value="Clear Cart" />
+    <form method="get" action=@{ExportCartR} class="entryAction" >
+      <input type="submit" value="Export Cart" />

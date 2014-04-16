@@ -7,6 +7,8 @@
       <a class="navBar" href=@{UploadR}> Upload
   <div class="navDiv">
       <a class="navBar" href=@{SearchR ""}> Search
+  <div class="navDiv">
+      <a class="navBar" href=@{ViewCartR}> Cart
 
 $maybe msg <- mmsg
     <div #message>#{msg}

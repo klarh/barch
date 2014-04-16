@@ -8,8 +8,8 @@ import Barch.Adaptors
 import Import
 import Yesod.Markdown
 
-shortReferenceView::Entity Reference->Widget
-shortReferenceView (Entity refid (Reference typ ident fields _ tags _ _)) =
+shortReferenceView::Bool->Entity Reference->Widget
+shortReferenceView inCart (Entity refid (Reference typ ident fields _ tags _ _)) =
   $(widgetFile "shortReferenceView")
 
 fullReferenceView::Bool->Reference->Widget

@@ -6,10 +6,18 @@
 
 / HomeR GET
 /browse/#Int BrowseR GET
+
 /upload UploadR GET POST
 /upload/view/#ReferenceFileId UploadedFileR GET
 /upload/delete/#ReferenceFileId DeleteUploadedFileR GET POST
+
 /edit/#ReferenceId EditR GET POST
 /delete/#ReferenceId DeleteR GET POST
 /view/#ReferenceId ViewR GET
 /search/#Text SearchR GET POST
+
+/cart/add/#ReferenceId AddCartR POST
+/cart/remove/#ReferenceId RemoveCartR POST
+/cart/clear ClearCartR POST
+/cart/view ViewCartR GET
+/cart/export ExportCartR GET

@@ -10,19 +10,10 @@ import qualified Data.Conduit.List as CL (consume, sequence)
 import qualified Data.Text as T
 import System.Directory (removeFile)
 
--- split files into a 256K chunks
+-- | split files into a 256K chunks
 chunkSize::Int
 chunkSize = 256*1024
 
--- splitByteString::B.ByteString->[B.ByteString]
--- splitByteString x
---   | length x == 0 = []
---   | otherwise = ((take chunkSize x):(splitByteString $ drop chunkSize x))
-
--- splitByteStringSink::Sink B.ByteString (ResourceT IO) B.ByteString
--- splitByteStringSink = take chunkSize
-
---referenceFiles::ReferenceId->[ReferenceFile]
 referenceFiles ident = runDB $ selectList [ReferenceFileRef ==. ident] [Asc ReferenceFileVersion]
 
 getFile::ReferenceFileId->Handler (Maybe TypedContent)
@@ -45,5 +36,4 @@ insertFile refid version file = do
   refFileId <- runDB $ insert refFile
   chunks <- (fileSource file) $= (CL.sequence $ CB.take chunkSize) $$ CL.consume
   _ <- runDB $ insertMany $ zipWith (FileChunk refFileId) [0..] (BS.concat . BL.toChunks <$> chunks)
---  _ <- liftIO $ removeFile $ T.unpack . fileName $ file
   return refFileId

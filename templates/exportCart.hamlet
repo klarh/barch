@@ -1,0 +1,4 @@
+<h1> Cart Contents
+<pre>
+  $forall entry <- entries
+    #{entry}

@@ -20,10 +20,12 @@ library
                      Settings.StaticFiles
                      Settings.Development
                      Barch.Adaptors
+                     Barch.Cart
                      Barch.QueryParser
                      Barch.UploadUtils
                      Barch.Widgets
                      Handler.Browse
+                     Handler.Cart
                      Handler.Edit
                      Handler.Delete
                      Handler.DeleteUploadedFile
@@ -80,7 +82,7 @@ library
                  , data-default
                  , aeson
                  , conduit                       >= 1.0
-                 , monad-logger                  >= 0.3
+                 , monad-logger                  >= 0.3 && <= 0.3.2
                  , fast-logger                   >= 0.3
                  , containers                    >= 0.5
                  , bibtex                        >= 0.1
