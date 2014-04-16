@@ -14,6 +14,8 @@ a:hover
   text-decoration:none
 
 div.container
+  max-width: 60em
+  width: 100%
   background-color:#dbd0b8
   box-shadow 0 0 5px 5px #dbd0b8
 
@@ -24,7 +26,7 @@ input[type=submit]
   background-color:#f7f3de
 
 input[type=text]
-  width=75%
+  width:75%
   background-color:#ebe7e4
 textarea
   width:75%

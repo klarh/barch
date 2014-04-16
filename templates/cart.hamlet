@@ -4,7 +4,9 @@
     <form method="post" action=@{ClearCartR} class="entryAction" >
       <input type="submit" value="Clear Cart" />
     <form method="get" action=@{ExportCartR} class="entryAction" >
-      <input type="submit" value="Export Cart" />
+      <input type="submit" value="Export Cart (Text)" />
+    <form method="get" action=@{ExportCartBibR} class="entryAction" >
+      <input type="submit" value="Export Cart (BibTeX)" />
 <ul>
   $forall item <- cartItems
     <li> ^{shortReferenceView True item}
@@ -13,4 +15,6 @@
     <form method="post" action=@{ClearCartR} class="entryAction" >
       <input type="submit" value="Clear Cart" />
     <form method="get" action=@{ExportCartR} class="entryAction" >
-      <input type="submit" value="Export Cart" />
+      <input type="submit" value="Export Cart (Text)" />
+    <form method="get" action=@{ExportCartBibR} class="entryAction" >
+      <input type="submit" value="Export Cart (BibTeX)" />
