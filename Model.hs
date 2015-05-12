@@ -16,7 +16,7 @@ import Data.Typeable (Typeable)
 -- You can find more information on persistent and how to declare entities
 -- at:
 -- http://www.yesodweb.com/book/persistent/
-let mongoSettings = (mkPersistSettings (ConT ''MongoBackend))
+let mongoSettings = (mkPersistSettings (ConT ''MongoContext))
                         { mpsGeneric = False
                         }
  in share [mkPersist mongoSettings, mkMigrate "migrateAll"]

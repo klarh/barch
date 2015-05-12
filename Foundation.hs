@@ -119,7 +119,7 @@ instance Yesod App where
 
 -- How to run database actions.
 instance YesodPersist App where
-    type YesodPersistBackend App = Action
+    type YesodPersistBackend App = MongoContext
     runDB = defaultRunDB persistConfig connPool
 
 instance YesodAuth App where
@@ -144,6 +144,8 @@ instance YesodAuth App where
     authPlugins _ = [authBrowserId def, authGoogleEmail]
 
     authHttpManager = httpManager
+
+instance YesodAuthPersist App
 
 -- This instance is required to use forms. You can modify renderMessage to
 -- achieve customized and internationalized form validation messages.

@@ -18,8 +18,8 @@ query2DBFilter::[Q.Elt]->[Filter Reference]
 query2DBFilter =
   mapMaybe f
   where
-    f (Q.Field t _) = Just $ multiEq ReferenceFieldKeys t
-    f (Q.Tag t) = Just $ multiEq ReferenceTags t
+    f (Q.Field t _) = Just $ anyEq ReferenceFieldKeys t
+    f (Q.Tag t) = Just $ anyEq ReferenceTags t
     f _ = Nothing
 
 -- | take a list of query elements and return the function to filter
