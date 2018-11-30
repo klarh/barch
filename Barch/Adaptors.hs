@@ -61,5 +61,5 @@ parseBibUrl::(Text, Text)->Either (Text, Text) (Text, Html)
 parseBibUrl (key, val) = case (T.toLower key) of
   "url" -> Right $ (key, [shamlet|<a href="#{val}">#{val}</a>|])
 --  "eprint" -> Right $ (key, [shamlet|<a href="#{val}">#{val}</a>|])
-  "doi" -> Right $ (key, [shamlet|<a href="http://dx.doi.org/#{val}">#{val}</a>|])
+  "doi" -> Right $ (key, [shamlet|<a href="https://doi.org/#{val}">#{val}</a>|])
   _ -> Left (key, val)
